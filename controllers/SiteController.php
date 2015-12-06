@@ -91,4 +91,10 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionHelloWorld(){
+        //$nameToDisplay = isset($_GET['nameToDisplay']) ? $_GET['nameToDisplay'] : null;
+        $nameToDisplay = Yii::$app->request->get('nameToDisplay');
+        return $this->render('helloWorld',['nameToDisplay' => $nameToDisplay]);
+    }
 }
