@@ -1,0 +1,1 @@
+To contact us write please to info@example.com

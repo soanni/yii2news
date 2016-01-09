@@ -1,0 +1,63 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+use app\models\Room;
+
+/**
+ * This is the model class for table "customer".
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $surname
+ * @property string $phone_number
+ *
+ * @property Reservation[] $reservations
+ */
+class Customer extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'customer';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['name', 'surname'], 'required'],
+            [['name', 'surname', 'phone_number'], 'string', 'max' => 50],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'surname' => 'Surname',
+            'phone_number' => 'Phone Number',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReservations()
+    {
+        return $this->hasMany(Reservation::className(), ['customer_id' => 'id']);
+    }
+
+    public function getRooms(){
+        return $this->hasMany(Room::className(),['id' => 'room_id'])->via('reservations');
+    }
+}

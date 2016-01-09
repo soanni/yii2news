@@ -3,6 +3,9 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
+    'aliases' => [
+        '@uploadedFilesDir' => '@app/uploadedFiles'
+    ],
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -38,14 +41,27 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            //'enableStrictParsing' => true,
             'rules' => [
-            ],
+                'newws/index' => 'newws/index',
+                'newws/<year:\d{4}>/items-list' => 'newws/items-list',
+                [
+                    'pattern' => 'newws/<category:\w+>/items-list',
+                    'route' => 'newws/items-list',
+                    'defaults' => ['category' => 'shopping'],
+                    //'encodeParams' => true
+                ],
+                [
+                    'pattern' => '<lang:\w+>/<controller>/<action>',
+                    'route' => '<controller>/<action>'
+                ],
+                ['class' => 'app\components\NewwsUrlRule']
+                //'newws/<category:\w+>/items-list' => 'newws/items-list'
+            ]
         ],
-        */
     ],
     'params' => $params,
 ];
@@ -60,6 +76,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'allowedIPs' => ['*']
     ];
 }
 

@@ -40,10 +40,6 @@ $backgroundColor = isset($this->params['bckg']) ? $this->params['bckg'] : '#FFFF
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'News', 'url' => ['news/items-list']],
-            ['label' => 'Newws', 'url' => ['newws/index']],
-            ['label' => 'Rooms', 'url' => ['rooms/index']],
-            ['label' => 'Static', 'url' => ['site/static?view=contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -61,7 +57,7 @@ $backgroundColor = isset($this->params['bckg']) ? $this->params['bckg'] : '#FFFF
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid" style = "padding-top: 60px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

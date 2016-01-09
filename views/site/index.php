@@ -1,8 +1,11 @@
 <?php
 
-/* @var $this yii\web\View */
+    /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+    $this->title = 'My Yii Application';
+    $this->params['breadcrumbs'][] = 'My website';
+    $backgroundColor = isset($_REQUEST['bckg']) ? $_REQUEST['bckg'] : '#FFFFFF';
+    $this->params['bckg'] = $backgroundColor;
 ?>
 <div class="site-index">
 
