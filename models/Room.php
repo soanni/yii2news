@@ -17,13 +17,12 @@ use app\models\Customer;
  * @property string $available_from
  * @property string $price_per_day
  * @property string $description
+ * @property string $fileImage
  *
  * @property Reservation[] $reservations
  */
 class Room extends \yii\db\ActiveRecord
 {
-    public $fileImage;
-
     /**
      * @inheritdoc
      */
@@ -43,6 +42,7 @@ class Room extends \yii\db\ActiveRecord
             [['available_from'], 'safe'],
             [['price_per_day'], 'number'],
             [['description'], 'string'],
+            [['fileImage'],'file']
         ];
     }
 

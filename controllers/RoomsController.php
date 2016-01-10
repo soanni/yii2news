@@ -42,17 +42,34 @@ class RoomsController extends Controller{
 
     public function actionCreate(){
         $model = new Room();
-        $modelCanSave = false;
-
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
-            $model->fileImage = UploadedFile::getInstance($model,'fileImage');
-            if($model->fileImage){
-                $model->fileImage->saveAs(Yii::getAlias('@uploadedFilesDir/' . $model->fileImage->baseName . '.' . $model->fileImage->extension));
+        if($model->load(Yii::$app->request->post())){
+            $image = UploadedFile::getInstance($model,'fileImage');
+            if($image){
+                $ext = $image->extension;
+                $name = Yii::$app->security->generateRandomString(11);
+                if($image->saveAs(Yii::getAlias('@uploadedFilesDir/' . $name . '.' . $ext))){
+                    $model->fileImage = "$name.$ext";
+                }
             }
-            $modelCanSave = true;
+            if($model->save()){
+                $this->redirect(['rooms/index']);
+            }
         }
 
-        return $this->render('create',['model' => $model, 'modelSaved' => $modelCanSave]);
+        return $this->render('create',['model' => $model,'type' => 'Create']);
+    }
+
+    public function actionUpdate($room_id){
+        $model = Room::findOne($room_id);
+        if( ($model != null) && ($model->load(Yii::$app->request->post())) && ($model->save())){
+            $this->redirect(['rooms/index']);
+        }
+        return $this->render('update',['model' => $model, 'type' => 'Update']);
+    }
+
+    public function actionView($room_id){
+        $model = Room::findOne($room_id);
+        return $this->render('view',['room' => $model]);
     }
 
     public function actionLastReservationByRoomId($room_id){
@@ -81,8 +98,8 @@ class RoomsController extends Controller{
         }elseif($reservationid != null){
             $reservationSelected = Reservation::findOne($reservationid);
             $reservations = array($reservationSelected);
-            $rooms = $reservationSelected->room;
-            $customers = $reservationSelected->customer;
+            $rooms = array($reservationSelected->room);
+            $customers = array($reservationSelected->customer);
         }elseif($customerid != null){
             $customerSelected = Customer::findOne($customerid);
             $customers = array($customerSelected);

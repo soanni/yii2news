@@ -34,6 +34,8 @@
             <td><?php echo Yii::$app->formatter->asDate($item['available_from'],'php:Y-m-d');?></td>
             <td><?php echo Yii::$app->formatter->asCurrency($item['price_per_day'],'EUR');?></td>
             <td><?php echo $item['description'];?></td>
+            <td><?php echo Html::a('View',Url::to(['rooms/view','room_id' => $item['id']]),['class' => 'btn btn-primary btn-xs']);?></td>
+            <td><?php echo Html::a('Update',Url::to(['rooms/update','room_id' => $item['id']]),['class' => 'btn btn-primary btn-xs']);?></td>
         </tr>
     <?php endforeach;?>
 </table>
