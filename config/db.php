@@ -6,4 +6,7 @@ return [
     'username' => 'root',
     'password' => 'jd5xugLMrr',
     'charset' => 'utf8',
+    'on afterOpen' => function($event){
+        $event->sender->createCommand("SET time_zone = '+00:00'")->execute();
+    }
 ];

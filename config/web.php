@@ -8,6 +8,7 @@ $config = [
     ],
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'timeZone' => 'GMT',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
@@ -41,6 +42,10 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'dbSqlite' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'sqlite:' . dirname(__DIR__) . PATH_SEPARATOR . '..' . PATH_SEPARATOR . 'web' . PATH_SEPARATOR .'sqlite.db'
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
