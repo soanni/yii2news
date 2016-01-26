@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use app\models\Room;
 use app\models\Reservation;
@@ -10,6 +11,23 @@ use app\models\Customer;
 use yii\web\UploadedFile;
 
 class RoomsController extends Controller{
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','update'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create','update'],
+                        'roles' => ['admin']
+                    ],
+                ]
+            ]
+        ];
+    }
 
     public function actionIndex(){
         $sql = 'SELECT * from room ORDER BY id ASC';

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Room;
+use app\models\Reservation;
 
 /**
  * This is the model class for table "customer".
@@ -59,5 +60,13 @@ class Customer extends \yii\db\ActiveRecord
 
     public function getRooms(){
         return $this->hasMany(Room::className(),['id' => 'room_id'])->via('reservations');
+    }
+
+    public function getReservationsCount(){
+        return $this->hasMany(Reservation::className(),['customer_id' => 'id'])->count();
+    }
+
+    public function getNameAndSurname(){
+        return $this->name . ' ' . $this->surname;
     }
 }

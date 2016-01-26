@@ -44,6 +44,8 @@ $backgroundColor = isset($this->params['bckg']) ? $this->params['bckg'] : '#FFFF
             ['label' => 'Newws', 'url' => ['newws/index']],
             ['label' => 'Rooms', 'url' => ['rooms/index']],
             ['label' => 'Static', 'url' => ['site/static?view=contact']],
+            ['label' => 'Customers', 'url' => ['customers/grid']],
+            ['label' => 'Reservations', 'url' => ['reservations/grid']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

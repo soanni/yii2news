@@ -19,7 +19,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\UserRecord',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -67,6 +67,9 @@ $config = [
                 //'newws/<category:\w+>/items-list' => 'newws/items-list'
             ]
         ],
+        'authManager' => [
+            'class' => \yii\rbac\PhpManager::className()
+        ]
     ],
     'params' => $params,
 ];
